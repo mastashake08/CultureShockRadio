@@ -5,17 +5,15 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    -->
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
@@ -24,10 +22,27 @@
   <body ng-app="starter">
 
     <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
+      <ion-header-bar class="bar-positive">
+        <h1 class="title">Culture Shock Radio</h1>
       </ion-header-bar>
       <ion-content>
+        <audio id="soft">
+    <source src="http://fathomu.net:8000/stream" />
+
+</audio>
+
+<audio id="uncut">
+<source src="http://fathomu.net:8000/streamx"  />
+
+</audio>
+
+<button class="button button-block button-assertive" onClick="document.getElementById('uncut').play(); return false;">
+  Raw and Uncut
+</button>
+
+<button class="button button-block button-assertive" onClick="document.getElementById('soft').play(); return false;">
+  Soft Listening
+</button>
       </ion-content>
     </ion-pane>
   </body>
