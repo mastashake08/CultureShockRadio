@@ -27,22 +27,39 @@
       </ion-header-bar>
       <ion-content>
         <audio id="soft">
-    <source src="http://fathomu.net:8000/stream" />
+    <source src="http://fathomu.net:8000/stream">
 
 </audio>
 
 <audio id="uncut">
-<source src="http://fathomu.net:8000/streamx"  />
+<source src="http://fathomu.net:8000/streamx">
 
 </audio>
-
-<button class="button button-block button-assertive" onClick="document.getElementById('uncut').play(); return false;">
+<div class="row">
+<div class="col col-50">
+  <button class="button button-large button-assertive" onclick="document.getElementById(&apos;uncut&apos;).play(); return false;">
   Raw and Uncut
-</button>
-
-<button class="button button-block button-assertive" onClick="document.getElementById('soft').play(); return false;">
+  </button>
+</div>
+<div class="col col-50">
+  <button class="button button-large button-royal" onclick="document.getElementById(&apos;uncut&apos;).pause(); return false;">
+  Pause Raw and Uncut
+  </button>
+  </div>
+</div>
+<br>
+<div class="row">
+<div class="col col-50">
+  <button class="button button-large button-assertive" onclick="document.getElementById(&apos;soft&apos;).play(); return false;">
   Soft Listening
-</button>
+  </button>
+</div>
+<div class="col col-50">
+  <button class="button button-large button-royal" onclick="document.getElementById(&apos;soft&apos;).pause(); return false;">
+  Pause Soft Listening
+  </button>
+</div>
+</div>
       </ion-content>
     </ion-pane>
   </body>
