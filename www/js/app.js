@@ -7,25 +7,7 @@ angular.module('starter', ['ionic','ngCordova'])
 
 .run(function($ionicPlatform, $cordovaNativeAudio, $rootScope, $http) {
   $ionicPlatform.ready(function() {
-    // select the right Ad Id according to platform
-    var admobid = {};
-    if( /(android)/i.test(navigator.userAgent) ) { // for android & amazon-fireos
-        admobid = {
-            banner: 'ca-app-pub-7023023584987784/3437106151', // or DFP format "/6253334/dfp_example_ad"
-            interstitial: 'ca-app-pub-7023023584987784/3936633751'
-        };
-    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
-        admobid = {
-            banner: 'ca-app-pub-7023023584987784/6890100150', // or DFP format "/6253334/dfp_example_ad"
-            interstitial: 'ca-app-pub-7023023584987784/8366833355'
-        };
-    }
-    
-    if(AdMob) AdMob.createBanner( {
-    adId: admobid.banner,
-    position: AdMob.AD_POSITION.BOTTOM_CENTER,
-    autoShow: true,
-    isTesting: true} );
+
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -39,6 +21,26 @@ angular.module('starter', ['ionic','ngCordova'])
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+    // select the right Ad Id according to platform
+    var admobid = {};
+    if( /(android)/i.test(navigator.userAgent) ) { // for android & amazon-fireos
+        admobid = {
+            banner: 'ca-app-pub-7023023584987784/3437106151', // or DFP format "/6253334/dfp_example_ad"
+            interstitial: 'ca-app-pub-7023023584987784/3936633751'
+        };
+    } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+        admobid = {
+            banner: 'ca-app-pub-7023023584987784/6890100150', // or DFP format "/6253334/dfp_example_ad"
+            interstitial: 'ca-app-pub-7023023584987784/8366833355'
+        };
+    }
+
+    if(AdMob) AdMob.createBanner( {
+    adId: admobid.banner,
+    position: AdMob.AD_POSITION.BOTTOM_CENTER,
+    autoShow: true,
+    isTesting: false} );
+    
     $cordovaNativeAudio
    .preloadComplex('music', 'http://fathomu.net:8000/stream', 1, 1)
    .then(function (msg) {
