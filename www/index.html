@@ -24,7 +24,7 @@
 
     <ion-pane>
       <ion-header-bar class="bar-positive">
-        <h1 class="title">Culture Shock Radio</h1>
+        <h1 class="title"><i class="icon ion-radio-waves"></i> Culture Shock Radio</h1>
       </ion-header-bar>
       <ion-content>
         <div class="card">
@@ -47,28 +47,66 @@
 </audio>
 <div class="row">
 <div class="col col-50">
-  <button class="button button-large button-assertive" onclick="document.getElementById(&apos;uncut&apos;).play(); $(&apos;#track-title&apos;).hide(); $(&apos;#track-titlex&apos;).show(); return false;">
-  Raw and Uncut
+  <button class="button button-block button-assertive" onclick="document.getElementById(&apos;uncut&apos;).play();document.getElementById(&apos;soft&apos;).pause(); $(&apos;#track-title&apos;).hide(); $(&apos;#track-titlex&apos;).show(); return false;">
+  <i class="icon ion-play"></i> Raw and Uncut
   </button>
 </div>
 <div class="col col-50">
-  <button class="button button-large button-royal" onclick="document.getElementById(&apos;uncut&apos;).pause();  return false;">
-  Pause Raw and Uncut
+  <button class="button button-block button-royal" onclick="document.getElementById(&apos;uncut&apos;).pause();  return false;">
+  <i class="icon ion-pause"></i> Raw and Uncut
   </button>
   </div>
 </div>
 <br>
 <div class="row">
 <div class="col col-50">
-  <button class="button button-large button-assertive" onclick="document.getElementById(&apos;soft&apos;).play(); $(&apos;#track-title&apos;).show(); $(&apos;#track-titlex&apos;).hide(); return false;">
-  Soft Listening
+  <button class="button button-block  button-assertive" onclick="document.getElementById(&apos;soft&apos;).play();document.getElementById(&apos;uncut&apos;).pause(); $(&apos;#track-title&apos;).show(); $(&apos;#track-titlex&apos;).hide(); return false;">
+  <i class="icon ion-play"></i> Soft Listening
   </button>
 </div>
 <div class="col col-50">
-  <button class="button button-large button-royal" onclick="document.getElementById(&apos;soft&apos;).pause(); return false;">
-  Pause Soft Listening
+  <button class="button button-block button-royal" onclick="document.getElementById(&apos;soft&apos;).pause(); return false;">
+  <i class="icon ion-pause"></i> Soft Listening
   </button>
 </div>
+</div>
+<div class="row">
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+
+<button id="customButton"class=" button-clear button  button-full button-calm">  <i class="icon ion-card"></i> Donate To Culture Shock Radio</button>
+
+<script>
+  var handler = StripeCheckout.configure({
+    key: 'pk_live_aervCet9r6KPhSVoGwgrQAU8',
+    locale: 'auto',
+    token: function(token) {
+      // Use the token to create the charge with a server-side script.
+      // You can access the token ID with `token.id`
+      var data = {token: token.id};
+
+      var url = 'http://104.236.70.34/culture-shock-radio';
+      $.post(url, data, function(result){
+        alert('Thank you for your donation!');
+    });
+
+    }
+  });
+
+  $('#customButton').on('click', function(e) {
+    // Open Checkout with further options
+    handler.open({
+      name: 'Culture Shock Radio',
+      description: 'Donation',
+      amount: 500
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation
+  $(window).on('popstate', function() {
+    handler.close();
+  });
+</script>
 </div>
       </ion-content>
     </ion-pane>
@@ -88,9 +126,9 @@
       dataType: 'jsonp',
       success: function(json) {
           // this is the element we're updating that will hold the track title
-         $('#track-title').text('SOFT LISTENING: '+json['/stream']['title']);
+         $('#track-title').text(json['/stream']['title']);
           // this is the element we're updating that will hold the listeners count
-         $('#track-titlex').text('RAW LISTENING: '+json['/streamx']['title']);
+         $('#track-titlex').text(json['/streamx']['title']);
       },
       error: function(e) {
          console.log(e.message);
