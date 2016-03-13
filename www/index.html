@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html ng-controller="HomeCtrl">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -26,23 +27,32 @@
         <h1 class="title">Culture Shock Radio</h1>
       </ion-header-bar>
       <ion-content>
-        <audio id="soft">
+        <div class="card">
+          <a href="#" class="item item-icon-left">
+  <i class="icon ion-music-note"></i>
+  <p id="track-title"></p>
+  <p id="track-titlex"></p>
+</a>
+
+</div>
+
+        <audio id="soft" preload="auto">
     <source src="http://fathomu.net:8000/stream">
 
 </audio>
 
-<audio id="uncut">
+<audio id="uncut" preload="auto">
 <source src="http://fathomu.net:8000/streamx">
 
 </audio>
 <div class="row">
 <div class="col col-50">
-  <button class="button button-large button-assertive" onclick="document.getElementById(&apos;uncut&apos;).play(); return false;">
+  <button class="button button-large button-assertive" onclick="document.getElementById(&apos;uncut&apos;).play(); $('#track-title').hide(); $('#track-titlex').show(); return false;">
   Raw and Uncut
   </button>
 </div>
 <div class="col col-50">
-  <button class="button button-large button-royal" onclick="document.getElementById(&apos;uncut&apos;).pause(); return false;">
+  <button class="button button-large button-royal" onclick="document.getElementById(&apos;uncut&apos;).pause();  return false;">
   Pause Raw and Uncut
   </button>
   </div>
@@ -50,7 +60,7 @@
 <br>
 <div class="row">
 <div class="col col-50">
-  <button class="button button-large button-assertive" onclick="document.getElementById(&apos;soft&apos;).play(); return false;">
+  <button class="button button-large button-assertive" onclick="document.getElementById(&apos;soft&apos;).play(); $('#track-title').show(); $('#track-titlex').hide(); return false;">
   Soft Listening
   </button>
 </div>
@@ -63,4 +73,39 @@
       </ion-content>
     </ion-pane>
   </body>
+  <script>
+  function radioTitle() {
+
+  // this is the URL of the json.xml file located on your server.
+      var url = 'http://90kradio.com:8000/json.xsl';
+
+  $.ajax({
+     type: 'GET',
+      url: url,
+      async: true,
+      jsonpCallback: 'parseMusic',
+      contentType: "application/json",
+      dataType: 'jsonp',
+      success: function(json) {
+          // this is the element we're updating that will hold the track title
+         $('#track-title').text('SOFT LISTENING: '+json['/stream']['title']);
+          // this is the element we're updating that will hold the listeners count
+         $('#track-titlex').text('RAW LISTENING: '+json['/streamx']['title']);
+      },
+      error: function(e) {
+         console.log(e.message);
+      }
+  });
+
+  }
+
+  $(document).ready(function(){
+    $('#track-title').hide();
+    $('#track-titlex').hide();
+    setTimeout(function(){radioTitle();}, 2000);
+    setInterval(function(){radioTitle();}, 15000); // we're going to update our html elements / player every 15 seconds
+
+  });
+  </script>
+
 </html>
