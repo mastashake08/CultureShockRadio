@@ -40,7 +40,7 @@ angular.module('starter', ['ionic','ngCordova'])
     position: AdMob.AD_POSITION.BOTTOM_CENTER,
     autoShow: true,
     isTesting: false} );
-    
+
     $cordovaNativeAudio
    .preloadComplex('music', 'http://fathomu.net:8000/stream', 1, 1)
    .then(function (msg) {
@@ -60,6 +60,19 @@ angular.module('starter', ['ionic','ngCordova'])
 
   });
 })
-.controller('HomeCtrl', function($http, $rootScope, setTimeout){
+.controller('HomeCtrl', function($http, $rootScope, setTimeout, $scope){
 
-})
+});
+
+
+function switchStation(playStation, pauseStation, showTitle, hideTitle, playIcon, pauseIcon){
+  var play = document.getElementById(playStation);
+  play.load();
+  play.play();
+  var pause = document.getElementById(pauseStation);
+  pause.pause();
+  document.getElementById(playIcon).className = "icon ion-play";
+  document.getElementById(pauseIcon).className = "icon ion-pause";
+  $(showTitle).show();
+  $(hideTitle).hide(); return false;
+}
