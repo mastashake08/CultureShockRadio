@@ -67,12 +67,17 @@ angular.module('starter', ['ionic','ngCordova'])
 
 function switchStation(playStation, pauseStation, showTitle, hideTitle, playIcon, pauseIcon){
   var play = document.getElementById(playStation);
+  if(!play.paused){
+    play.pause();
+  }
+  else{
   play.load();
   play.play();
+  play.ondblClick
   var pause = document.getElementById(pauseStation);
   pause.pause();
   document.getElementById(playIcon).className = "icon ion-play";
   document.getElementById(pauseIcon).className = "icon ion-pause";
   $(showTitle).show();
   $(hideTitle).hide(); return false;
-}
+}}
